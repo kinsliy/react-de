@@ -4,19 +4,56 @@ import React from 'react';
 
 import './hello.less';
 
-import {observer} from 'mobx-react';
+import { connect } from 'react-redux';
 
-import data  from '../store/index';
 
-const Button =observer(props=>{
 
-    return(
 
-      <div id='hello'>
-        <span>{'按钮被点击了'+data.time+"次"}</span>
+
+class Button extends React.Component{
+
+   
+   constructor(props){
+      super(props)
+      
+       console.log(props)
+   }
+
+   add(){
+      this.props.dispatch({type:'ADD_number'})
+   }
+   
+  render(){
+      
+      return(
+
+        <div id='hello'>
+        <span onClick={this.add.bind(this)}>{'按钮被点击了'+this.props.page.num+"次"}</span>
       </div>
 
-    )
-})
 
-export default Button;
+      )
+    }
+
+    
+
+      
+}
+
+const state = state => {
+   
+  return {
+    page: state.page
+  }
+}
+
+const VisibleTodoList = connect(
+  state,
+  
+)(Button)
+
+
+
+
+
+export default VisibleTodoList;
